@@ -15,9 +15,12 @@ var striker = (function() {
         black_goti,
         plane, group,bg,
         stats,gootiyan,gootiPosns,line,
-        controls;
+        controls,
+        radiusStriker, radiusGoti;
 
         state=0;
+        radiusStriker = 0.1;
+        radiusGoti = 0.08;
 
         function Updategootiyan(){
            // console.log(velocity[9][1]);
@@ -67,6 +70,37 @@ var striker = (function() {
               }
 
         
+            }
+
+
+            function detectTakkar(goti1, goti2){
+                //console.log(goti1);
+                //console.log(goti2);
+                var rad1, rad2, wazan1, wazan2;
+                if(goti1 == 9){
+                    wazan1 = 1;
+                    wazan2 = 0.5;
+                    rad1 = radiusStriker;
+                    rad2 = radiusGoti;
+                }
+                else if(goti2 == 9){
+                    wazan1 = 0.5;
+                    wazan2 = 1;                   
+                    rad2 = radiusStriker;
+                    rad1 = radiusGoti;
+                }
+                else{
+                    wazan1 = wazan2 = 0.5;
+                    rad1 = rad2 = radiusGoti;
+                }
+
+                if((Math.pow(gootiPosns[goti1][0] - gootiPosns[goti2][0], 2) + Math.pow(gootiPosns[goti1][2] - gootiPosns[goti2][2], 2)) <= Math.pow(rad1 + rad2, 2)){
+                    //collision detected
+                    console.log((Math.pow(gootiPosns[goti1][0] - gootiPosns[goti2][0], 2) + Math.pow(gootiPosns[goti1][2] - gootiPosns[goti2][2], 2)));
+                    alert("lag gai");
+                }
+
+
             }
 
 
@@ -305,7 +339,7 @@ obj.position.y = -9;
 		
 		//Coin add
   for (var i=0; i<10; i++) {
-    var cgeometry = new THREE.CylinderGeometry( 0.08, 0.08, 0.025, 32 );
+    var cgeometry = new THREE.CylinderGeometry( radiusGoti, radiusGoti, 0.025, 32 );
     switch(i){
       case 0: // QUEEN
         var cmaterial = new THREE.MeshBasicMaterial( {color: 0xff0000} );
@@ -381,7 +415,7 @@ obj.position.y = -9;
 		cylinder.scale.set(2,2,2);
 		break;
       case 9:
-        var cgeometry = new THREE.CylinderGeometry( 0.1, 0.1, 0.025, 32 );
+        var cgeometry = new THREE.CylinderGeometry( radiusStriker, radiusStriker, 0.025, 32 );
         var cmaterial = new THREE.MeshBasicMaterial( {color: 0x0080ff} );
         var cylinder = new THREE.Mesh( cgeometry, cmaterial );
         cylinder.position.set(0.0,-1.8,2.6);
@@ -436,6 +470,17 @@ obj.position.y = -9;
 
         Updategootiyan();
         //console.log('dafuq');
+        if(state){
+            for (var i = 0; i < 10; i++) {
+                for (var j = 0; j < 10; j++) {
+                    if(i!=j){
+                        detectTakkar(i, j);
+                    }
+                }
+
+            }
+        }
+        //detectTakkar(9,0);
 
         renderer.render(scene, camera); // render camera and the scene
         requestAnimationFrame(render);
