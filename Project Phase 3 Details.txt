@@ -1,0 +1,17 @@
+Group Members
+**************
+Hanzallah Bin Ashaar, Muhammad Ammar Ahmed, Osama Ibrahim
+
+website link
+*****************************************************************
+http://hanzallah09384.byethost12.com/project_phase_3/index.html
+******************************************************************
+
+-->	 In this phase we have made basic objects that will be required to model our carrom game. These include the pieces 	and a striker.The object made provides a basic blueprint of the other pieces that will be made as rest of them are
+	identical to it. we have used a basic cylinder shape and through lighting and texture tried to give it a shiny 
+	marble look in order to create real carrom piece effect. this was a really challenging part to come up with 
+	the exact composition and deciding on a texture. 
+
+
+--> 	For the next phase we plan on making the most important part of the game that is the carrom board itself along 	with all other pieces following the model (9 of each color + a queen) and maybe deploy some basic movement.  
+
